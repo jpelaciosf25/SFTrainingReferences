@@ -1,0 +1,30 @@
+public class AccountProcessor {
+   @future
+   public  static void CountContacts(List<Id> accountIds)
+   {
+       List<Account> accountList=new List<Account>();
+       for(Id accId:accountIds)
+       {
+           //query the account record based on the id
+           //query to find the total number of contacts associated with accountId
+           //set it on the new field
+           //add the updated account to the accountList
+           Account acc=[select name from account where id=:accId];
+           acc.Number_of_Contacts__c=[select count() from contact where accountId=:accId];
+           accountList.add(acc);
+       }
+       update accountList;
+   }
+   
+   
+    public AccountProcessor() {
+        List<account> accList=[select id from account];
+        List<Id> accountIds=new List<Id>();
+        for(Account acc:accList)
+        {
+            accountIds.add(acc.id);
+
+        }
+        AccountProcessor.CountContacts(accountIds);
+    }
+}
