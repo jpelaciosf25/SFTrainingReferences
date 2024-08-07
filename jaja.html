@@ -1,0 +1,124 @@
+<template>
+    <template for:each={riderGroups} for:item="rider">
+        <div key={rider.RiderGroupName}>
+            
+            <article class="slds-card slds-card_boundary slds-m-top_x-small slds-m-bottom_x-medium">
+                <div class="slds-grid slds-wrap slds-p-top_small slds-p-bottom_small slds-p-left_small slds-p-right_small">
+                    <div class="slds-size_2-of-8" style="text-align: center;">
+                        <div class="slds-p-around_small" style="display: inline-block; text-align: left;">
+                            <img src={rider.RiderGroupLogo} width="100px" height="100px">
+                            <p>
+                                ₱ 0
+                            </p>
+                            <p>
+                                PREMIUM
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="slds-size_6-of-8">
+                        <div class="slds-p-around_small">
+                            <h1 class="slds-card__header-title" style="color: #00008fad; font-family: 'publico headline';">
+                                <div style="font-size: 18px; color: #5C5CB7;">
+                                    <strong>{rider.RiderGroupName}</strong>
+                                </div>
+                                    
+                            </h1>
+                            <p>
+                                {rider.RiderProductGroupDescription}
+                            </p>
+                            <br/>
+                            <template lwc:if={rider.HasRiderOptions}>
+                                <template lwc:if={rider.RiderGroupIsAdded}> 
+                                    <lightning-combobox
+                                        name="progress"
+                                        label="Rider Options"
+                                        value={rider.RiderOptionSelected.value}
+                                        placeholder="Select one"
+                                        options={rider.RiderOptions}
+                                        onchange={handleChangeRiderOption}
+                                        disabled={rider.RiderOptionsIsDisabled}
+                                        data-input="rider-option"
+                                        data-id={rider.RiderGroupName}
+                                        required>
+                                    </lightning-combobox>
+                                </template>
+                                <template lwc:else>
+                                    <lightning-combobox
+                                        name="progress"
+                                        label="Rider Options"
+                                        value={rider.RiderOptionSelected.value}
+                                        placeholder="Select one"
+                                        options={rider.RiderOptions}
+                                        onchange={handleChangeRiderOption}
+                                        disabled={rider.RiderOptionsIsDisabled}
+                                        data-input="rider-option"
+                                        data-id={rider.RiderGroupName}>
+                                    </lightning-combobox>
+                                </template>
+                            </template>
+
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-size_1-of-2">
+                                    <template lwc:if={rider.RiderGroupIsAdded}> 
+                                        <lightning-input
+                                            type="number"
+                                            label="Rider Sum Insured"
+                                            value={rider.RiderSumInsured}
+                                            placeholder="₱ 0"
+                                            onchange={handleChangeSumInsured}
+                                            disabled={rider.SumInsuredInputIsDisabled}
+                                            data-input="sum-insured"
+                                            data-id={rider.RiderGroupName}
+                                            required>
+                                        </lightning-input>
+                                    </template>
+                                    <template lwc:else>
+                                        <lightning-input
+                                            type="number"
+                                            label="Rider Sum Insured"
+                                            value={rider.RiderSumInsured}
+                                            placeholder="₱ 0"
+                                            onchange={handleChangeSumInsured}
+                                            disabled={rider.SumInsuredInputIsDisabled}
+                                            data-input="sum-insured"
+                                            data-id={rider.RiderGroupName}>
+                                        </lightning-input>
+                                    </template>
+                                </div>
+                                <div class="slds-size_1-of-2">
+                                    <div class="slds-grid slds-wrap">
+                                        <div class="slds-col slds-size_12-of-12">
+                                            <label class="slds-form-element__label" for="unique-id-of-input">&nbsp;</label>
+                                        </div>
+                                        <div class="slds-col slds-size_12-of-12">
+                                            <button class="slds-button slds-button_neutral slds-button_dual-stateful slds-float_right"
+                                                    aria-live="assertive" 
+                                                    aria-pressed="false"
+                                                    onclick={handleAddRider}
+                                                    data-input="add-rider"
+                                                    data-name={rider.RiderGroupName}
+                                                    title="Test"
+                                                    name="Test">
+                                                <span class="slds-text-not-pressed">
+                                                <svg class="slds-button__icon slds-button__icon_small slds-button__icon_left" aria-hidden="true">
+                                                <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#add"></use>
+                                                </svg>{rider.RiderButtonNotClickedText}</span>
+                                                <span class="slds-text-pressed">
+                                                <svg class="slds-button__icon slds-button__icon_small slds-button__icon_left" aria-hidden="true">
+                                                <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg#check"></use>
+                                                </svg>{rider.RiderButtonClickedText}</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </template>
+</template>
